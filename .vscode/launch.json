@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "alcool_ou_gasolina",
+            "cwd": "alcool_ou_gasolina",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "alcool_ou_gasolina (profile mode)",
+            "cwd": "alcool_ou_gasolina",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "alcool_ou_gasolina (release mode)",
+            "cwd": "alcool_ou_gasolina",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

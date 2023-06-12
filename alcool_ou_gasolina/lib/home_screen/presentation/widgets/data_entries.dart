@@ -25,9 +25,12 @@ class _DataEntriesState extends State<DataEntries> {
   Calcul calcul = Calcul();
   bool _shouldEnableButtons = false;
 
-  void shouldEnableButtonsCallback(bool hasEntry) {
+  void shouldEnableButtonsCallback({
+    required bool hasAlcoolEntry,
+    required bool hasGasolinaEntry,
+  }) {
     setState(() {
-      _shouldEnableButtons = hasEntry;
+      _shouldEnableButtons = hasAlcoolEntry & hasGasolinaEntry;
     });
   }
 
@@ -46,10 +49,10 @@ class _DataEntriesState extends State<DataEntries> {
                 DataEntry(
                   label: "Preco Alcool, ex: 1.59",
                   controller: alcoolController,
-                  enableButtonsCallback: () =>
-                      shouldEnableButtonsCallback(true),
-                  disableButtonsCallback: () =>
-                      shouldEnableButtonsCallback(false),
+                  enableButtonsCallback: () => shouldEnableButtonsCallback(
+                    hasAlcoolEntry: alcoolController.text.isNotEmpty,
+                    hasGasolinaEntry: gasolinaController.text.isNotEmpty,
+                  ),
                 ),
                 const SizedBox(
                   height: 16.0,
@@ -57,10 +60,10 @@ class _DataEntriesState extends State<DataEntries> {
                 DataEntry(
                   label: "Preco Gasolina, ex: 3.15",
                   controller: gasolinaController,
-                  enableButtonsCallback: () =>
-                      shouldEnableButtonsCallback(true),
-                  disableButtonsCallback: () =>
-                      shouldEnableButtonsCallback(false),
+                  enableButtonsCallback: () => shouldEnableButtonsCallback(
+                    hasAlcoolEntry: alcoolController.text.isNotEmpty,
+                    hasGasolinaEntry: gasolinaController.text.isNotEmpty,
+                  ),
                 ),
                 const SizedBox(
                   height: 16.0,

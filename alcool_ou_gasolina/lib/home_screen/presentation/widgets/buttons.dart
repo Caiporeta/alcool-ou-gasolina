@@ -30,7 +30,6 @@ class _ButtonsState extends State<Buttons> {
         ),
         ResetButton(
           callback: widget.resetCallback,
-          enableButtons: widget.enableButtons,
         ),
       ],
     );
