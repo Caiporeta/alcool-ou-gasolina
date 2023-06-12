@@ -7,7 +7,12 @@ import 'package:alcool_ou_gasolina/home_screen/presentation/widgets/data_entry.d
 import 'package:flutter/material.dart';
 
 class DataEntries extends StatefulWidget {
-  const DataEntries({Key? key}) : super(key: key);
+  void Function(String result) displayResult;
+
+  DataEntries({
+    Key? key,
+    required this.displayResult,
+  }) : super(key: key);
 
   @override
   State<DataEntries> createState() => _DataEntriesState();
@@ -18,6 +23,13 @@ class _DataEntriesState extends State<DataEntries> {
   TextEditingController gasolinaController = TextEditingController();
 
   Calcul calcul = Calcul();
+  bool _shouldEnableButtons = false;
+
+  void shouldEnableButtonsCallback(bool hasEntry) {
+    setState(() {
+      _shouldEnableButtons = hasEntry;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +44,31 @@ class _DataEntriesState extends State<DataEntries> {
             child: Column(
               children: [
                 DataEntry(
-                    label: "Preco Alcool, ex: 1.59",
-                    controller: alcoolController),
+                  label: "Preco Alcool, ex: 1.59",
+                  controller: alcoolController,
+                  enableButtonsCallback: () =>
+                      shouldEnableButtonsCallback(true),
+                  disableButtonsCallback: () =>
+                      shouldEnableButtonsCallback(false),
+                ),
                 const SizedBox(
                   height: 16.0,
                 ),
                 DataEntry(
-                    label: "Preco Gasolina, ex: 3.15",
-                    controller: gasolinaController),
+                  label: "Preco Gasolina, ex: 3.15",
+                  controller: gasolinaController,
+                  enableButtonsCallback: () =>
+                      shouldEnableButtonsCallback(true),
+                  disableButtonsCallback: () =>
+                      shouldEnableButtonsCallback(false),
+                ),
                 const SizedBox(
                   height: 16.0,
                 ),
                 Buttons(
                   calculateCallback: () => _calculateBetterOption(),
                   resetCallback: () => _resetEntries(),
+                  enableButtons: _shouldEnableButtons,
                 ),
               ],
             ),
@@ -54,10 +77,12 @@ class _DataEntriesState extends State<DataEntries> {
   }
 
   void _calculateBetterOption() {
-    calcul.result(
+    final String result = calcul.result(
       alcoolEntry: alcoolController.text,
       gasolinaEntry: gasolinaController.text,
     );
+
+    widget.displayResult(result);
   }
 
   void _resetEntries() {

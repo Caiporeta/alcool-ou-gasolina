@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CalculateButton extends StatefulWidget {
   void Function() callback;
+  bool enableButtons;
 
   CalculateButton({
     Key? key,
     required this.callback,
+    required this.enableButtons,
   }) : super(key: key);
 
   @override
@@ -19,9 +21,12 @@ class _CalculateButtonState extends State<CalculateButton> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Colors.blueAccent,
+        enableFeedback: widget.enableButtons,
       ),
       onPressed: () {
-        widget.callback.call();
+        if (widget.enableButtons) {
+          widget.callback.call();
+        }
       },
       child: const Text(
         "Calcular",

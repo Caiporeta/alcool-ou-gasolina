@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 class Buttons extends StatefulWidget {
   void Function() calculateCallback;
   void Function() resetCallback;
+  bool enableButtons;
 
   Buttons({
     Key? key,
     required this.calculateCallback,
     required this.resetCallback,
+    required this.enableButtons,
   }) : super(key: key);
 
   @override
@@ -20,12 +22,15 @@ class _ButtonsState extends State<Buttons> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         CalculateButton(
           callback: widget.calculateCallback,
+          enableButtons: widget.enableButtons,
         ),
         ResetButton(
           callback: widget.resetCallback,
+          enableButtons: widget.enableButtons,
         ),
       ],
     );

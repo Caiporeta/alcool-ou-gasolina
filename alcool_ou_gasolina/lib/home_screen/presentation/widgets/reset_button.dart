@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class ResetButton extends StatefulWidget {
   void Function() callback;
+  bool enableButtons;
 
-  ResetButton({Key? key, required this.callback}) : super(key: key);
+  ResetButton({
+    Key? key,
+    required this.callback,
+    required this.enableButtons,
+  }) : super(key: key);
 
   @override
   State<ResetButton> createState() => _ResetButtonState();
@@ -15,9 +20,12 @@ class _ResetButtonState extends State<ResetButton> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Colors.blueAccent,
+        enableFeedback: widget.enableButtons,
       ),
       onPressed: () {
-        widget.callback.call();
+        if (widget.enableButtons) {
+          widget.callback.call();
+        }
       },
       child: const Text(
         "Resetar",

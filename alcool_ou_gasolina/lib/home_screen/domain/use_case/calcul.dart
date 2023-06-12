@@ -14,7 +14,6 @@ class Calcul {
     final double coeficient = alcoolPrice / gasolinaPrice;
 
     final bool result = coeficient <= 0.7;
-    log(result ? alcoolResult : gasolinaResult);
 
     return result ? alcoolResult : gasolinaResult;
   }

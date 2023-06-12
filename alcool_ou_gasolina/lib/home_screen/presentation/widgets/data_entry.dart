@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class DataEntry extends StatefulWidget {
   final TextEditingController controller;
   final String label;
+  final void Function() enableButtonsCallback;
+  final void Function() disableButtonsCallback;
 
   const DataEntry({
     Key? key,
     required this.controller,
     required this.label,
+    required this.enableButtonsCallback,
+    required this.disableButtonsCallback,
   }) : super(key: key);
 
   @override
@@ -27,6 +31,13 @@ class _DataEntryState extends State<DataEntry> {
         ),
         child: TextField(
           controller: widget.controller,
+          onChanged: (String text) {
+            if (text.isNotEmpty) {
+              widget.enableButtonsCallback();
+            } else {
+              widget.disableButtonsCallback();
+            }
+          },
           keyboardType: TextInputType.number,
           style: const TextStyle(
             fontSize: 25.0,
